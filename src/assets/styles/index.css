@@ -29,6 +29,7 @@
   display: flex;
   gap: 2em;
   margin: 1rem;
+  font-weight: 700;
 }
 
 .card-container {
@@ -58,6 +59,16 @@
   grid-column: -2/-1;
 }
 
+.win {
+  color: rgb(62, 240, 62);
+  font-weight: 700;
+}
+
+.loss {
+  color: red;
+  font-weight: 700;
+}
+
 @media (max-width: 48em) {
   .header {
     flex-direction: column;
@@ -68,12 +79,13 @@
     width: 30ch;
   }
 
-  .scores {
-    margin: 0 auto;
-  }
-
   .card {
     font-size: 5rem;
+  }
+
+  .card:hover {
+    cursor: pointer;
+    background-color: transparent;
   }
 
   .card-container {
