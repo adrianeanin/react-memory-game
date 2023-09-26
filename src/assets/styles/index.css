@@ -1,0 +1,87 @@
+@import url("cssReset.css");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap");
+
+:root {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.5;
+  overflow-y: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  gap: 1em;
+  align-items: center;
+  text-align: center;
+}
+
+.header h1 {
+  color: rgb(255, 215, 0);
+  font-size: 2rem;
+}
+
+.header p {
+  font-size: 1rem;
+}
+
+.scores {
+  display: flex;
+  gap: 2em;
+  margin: 1rem;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  justify-content: space-between;
+  gap: 1em;
+  padding: 1rem;
+}
+
+.card {
+  font-size: 8rem;
+  text-align: center;
+  height: auto;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 25px 0 rgba(128, 128, 128, 0.25);
+  transition: background-color 250ms ease-in-out;
+}
+
+.card:hover {
+  cursor: pointer;
+  background-color: rgba(255, 215, 0, 0.8);
+}
+
+.card-container .card:nth-child(12) {
+  grid-column: -2/-1;
+}
+
+@media (max-width: 48em) {
+  .header {
+    flex-direction: column;
+  }
+
+  .header p {
+    font-size: 1rem;
+    width: 30ch;
+  }
+
+  .scores {
+    margin: 0 auto;
+  }
+
+  .card {
+    font-size: 5rem;
+  }
+
+  .card-container {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 2rem;
+  }
+
+  .card-container .card:nth-child(12) {
+    grid-column: auto;
+  }
+}
