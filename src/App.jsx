@@ -85,7 +85,7 @@ const App = () => {
   return (
     <>
       <header className="header">
-        <h1>Emoji Memory Game</h1>
+        <h1>Memoji</h1>
         <p>
           Score points by clicking on an emoji, but don't click on any more than
           once!
