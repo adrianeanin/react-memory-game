@@ -30,6 +30,35 @@ const App = () => {
     });
   };
 
+  const handleClick = (emojiCodePoint) => {
+    const shuffled = helpers.shuffleArray([...data], data.length - 1);
+    setShuffledData(shuffled);
+
+    if (!isClicked) setIsClicked(emojiCodePoint);
+
+    setScore((prev) => prev + 1);
+
+    if (isClicked === emojiCodePoint) {
+      setDisplayLoss(true);
+      gameOver();
+      return;
+    }
+  };
+
+  const checkWin = () => {
+    if (score === 12) {
+      setDisplayWin(true);
+      gameOver();
+    }
+  };
+
+  const gameOver = () => {
+    setIsClicked(null);
+    if (score > best) setBest(score);
+    setScore(0);
+    return;
+  };
+
   const resetWin = () => {
     if (displayWin) {
       const winTimeout = setTimeout(() => {
@@ -50,37 +79,10 @@ const App = () => {
     }
   };
 
+  useEffect(checkWin, [score]);
   useEffect(resetWin, [displayWin]);
   useEffect(resetLoss, [displayLoss]);
   useEffect(getEmojiData, []);
-
-  const handleClick = (emojiCodePoint) => {
-    const shuffled = helpers.shuffleArray([...data], data.length - 1);
-    setShuffledData(shuffled);
-
-    if (!isClicked) setIsClicked(emojiCodePoint);
-
-    if (isClicked === emojiCodePoint) {
-      setDisplayLoss(true);
-      gameOver();
-      return;
-    }
-
-    if (score === shuffledData.length) {
-      setDisplayWin(true);
-      gameOver();
-      return;
-    }
-
-    setScore((prev) => prev + 1);
-  };
-
-  const gameOver = () => {
-    setIsClicked(null);
-    if (score > best) setBest(score);
-    setScore(0);
-    return;
-  };
 
   return (
     <>
