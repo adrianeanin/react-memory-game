@@ -13,14 +13,18 @@ const App = () => {
   const [isClicked, setIsClicked] = useState(null);
   const [displayLoss, setDisplayLoss] = useState(false);
   const [displayWin, setDisplayWin] = useState(false);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(12);
+  const [gameOverCount, setGameOverCount] = useState(0);
 
   const getEmojiData = () => {
     const req = axios.get(`https://emoji-api.com/emojis?access_key=${apiKey}`);
 
     req.then((res) => {
-      const sliced = res.data.slice(100, 112);
+      console.log(res);
+      const sliced = res.data.slice(startIndex, endIndex);
+
       const shuffled = helpers.shuffleArray([...sliced], sliced.length - 1);
-      console.log(sliced);
       setData(sliced);
       setShuffledData(shuffled);
     });
@@ -41,6 +45,9 @@ const App = () => {
     if (isClicked === emojiCodePoint) {
       setDisplayLoss(true);
       gameOver();
+      startIndex += 20;
+      endIndex += 20;
+      getEmojiData();
       return;
     }
   };
@@ -56,7 +63,12 @@ const App = () => {
     setIsClicked(null);
     if (score > best) setBest(score);
     setScore(0);
-    return;
+    setGameOverCount((prev) => prev + 1);
+    if (gameOverCount > 0 && gameOverCount % 3 === 0) {
+      setStartIndex((prev) => prev + 20);
+      setEndIndex((prev) => prev + 20);
+      getEmojiData();
+    }
   };
 
   const resetWin = () => {
@@ -82,7 +94,7 @@ const App = () => {
   useEffect(checkWin, [score]);
   useEffect(resetWin, [displayWin]);
   useEffect(resetLoss, [displayLoss]);
-  useEffect(getEmojiData, []);
+  useEffect(getEmojiData, [startIndex, endIndex]);
 
   return (
     <>
