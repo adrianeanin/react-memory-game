@@ -45,9 +45,6 @@ const App = () => {
     if (isClicked === emojiCodePoint) {
       setDisplayLoss(true);
       gameOver();
-      startIndex += 20;
-      endIndex += 20;
-      getEmojiData();
       return;
     }
   };
