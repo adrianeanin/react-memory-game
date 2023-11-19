@@ -10,7 +10,7 @@ const App = () => {
   const [shuffledData, setShuffledData] = useState(null);
   const [score, setScore] = useState(0);
   const [best, setBest] = useState(0);
-  const [isClicked, setIsClicked] = useState(null);
+  const [isClicked, setIsClicked] = useState([]);
   const [displayLoss, setDisplayLoss] = useState(false);
   const [displayWin, setDisplayWin] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
@@ -38,11 +38,11 @@ const App = () => {
     const shuffled = helpers.shuffleArray([...data], data.length - 1);
     setShuffledData(shuffled);
 
-    if (!isClicked) setIsClicked(emojiCodePoint);
+    setIsClicked((prevIsClicked) => [...prevIsClicked, emojiCodePoint]);
 
     setScore((prev) => prev + 1);
 
-    if (isClicked === emojiCodePoint) {
+    if (isClicked.includes(emojiCodePoint)) {
       setDisplayLoss(true);
       gameOver();
       return;
@@ -57,7 +57,7 @@ const App = () => {
   };
 
   const gameOver = () => {
-    setIsClicked(null);
+    setIsClicked([]);
     if (score > best) setBest(score);
     setScore(0);
     setGameOverCount((prev) => prev + 1);
